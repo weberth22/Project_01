@@ -1,0 +1,42 @@
+{
+  "name": "front",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "watch": "npm-watch"
+  },
+  "dependencies": {
+    "next": "15.1.3",
+    "npm-watch": "^0.13.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
+    "react-router-dom": "^7.1.1",
+    "rsuite": "^5.76.2"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "dotenv": "^16.4.7",
+    "eslint": "^9",
+    "eslint-config-next": "15.1.3",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "app/**/*.{js,jsx,ts,tsx}"
+      ],
+      "extensions": "js,jsx"
+    }
+  }
+}
