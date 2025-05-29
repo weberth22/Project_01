@@ -9,10 +9,12 @@ type User = {
   id: number;
   name: string;
   email: string;
+  roles: string[];
 };
 
 type AuthContextType = {
   user: User | null;
+  hasRoles: (rolesToCheck: string | string[]) => boolean;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
@@ -44,7 +46,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
         if (res.ok) {
           const data = await res.json();
-          setUser(data);
+          setUser(data.user);
         } else {
           setUser(null);
           router.push("/login");
@@ -85,7 +87,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const use = await me.json();
     localStorage.setItem("authUserId", use.id);
-    setUser(use);
+    setUser(use.user);
 
     return;
   };
@@ -110,8 +112,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     showMessage(res);
   };
 
+  const hasRoles = (rolesToCheck: string | string[]): boolean => {
+    if (!user?.roles) return false;
+
+    const userRoles = user.roles;
+
+    if (Array.isArray(rolesToCheck)) {
+      return rolesToCheck.some((role) => rolesToCheck.includes(role));
+    }
+
+    return rolesToCheck.includes(rolesToCheck);
+  };
+
   return (
-    <AuthContext.Provider value={{ user, isLoading, login, logout }}>
+    <AuthContext.Provider value={{ user, isLoading, login, logout, hasRoles }}>
       {children}
     </AuthContext.Provider>
   );

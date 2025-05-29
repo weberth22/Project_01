@@ -37,8 +37,17 @@ export default class AuthController {
   async me({ auth, response }: HttpContext) {
     try {
       await auth.check()
-
-      return response.ok(auth.user)
+      const user = auth.user
+      await user?.load('roles' as any)
+      const roles = user?.roles.flatMap((role) => role.role)
+      return response.ok({
+        user: {
+          id: user?.id,
+          email: user?.email,
+          name: user?.fullName,
+          roles,
+        },
+      })
     } catch {
       return response.status(400).json({ message: 'Usuário não autenticado' })
     }
