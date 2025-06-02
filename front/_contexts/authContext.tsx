@@ -118,10 +118,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const userRoles = user.roles;
 
     if (Array.isArray(rolesToCheck)) {
-      return rolesToCheck.some((role) => rolesToCheck.includes(role));
+      return rolesToCheck.some((role) => userRoles.includes(role));
     }
 
-    return rolesToCheck.includes(rolesToCheck);
+    return userRoles.includes(rolesToCheck);
   };
 
   return (
