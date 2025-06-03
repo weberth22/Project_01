@@ -32,6 +32,7 @@ interface iconButton {
   prop: (id: number) => void;
   key: number;
   width?: number;
+  roles?: string[] | string;
 }
 
 export const TableField = ({
@@ -79,22 +80,27 @@ export const TableFieldBoolean = ({
   </Column>
 );
 
-export const TableButomIcon = (iconButtons: iconButton[]) => (
+export const TableButomIcon = (
+  iconButtons: iconButton[],
+  hasRoles: (role: string | string[]) => boolean
+) => (
   <Column key={1} flexGrow={80} align="center" fixed="right">
     <HeaderCell> </HeaderCell>
 
     <Cell style={{ padding: "6px" }}>
       {(rowData) =>
-        iconButtons.map((iconButton) => (
-          <IconButton
-            className="mr-1"
-            key={iconButton.key}
-            appearance="primary"
-            color={iconButton.color}
-            onClick={() => iconButton.prop(rowData.id)}
-            icon={iconButton.icon}
-          ></IconButton>
-        ))
+        iconButtons
+          .filter((bnt) => bnt.roles && hasRoles(bnt.roles))
+          .map((iconButton) => (
+            <IconButton
+              className="mr-1"
+              key={iconButton.key}
+              appearance="primary"
+              color={iconButton.color}
+              onClick={() => iconButton.prop(rowData.id)}
+              icon={iconButton.icon}
+            ></IconButton>
+          ))
       }
     </Cell>
   </Column>
