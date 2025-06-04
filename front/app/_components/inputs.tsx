@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { DatePicker, DateRangePicker, Form, Input, SelectPicker } from "rsuite";
+import {
+  CheckPicker,
+  DatePicker,
+  DateRangePicker,
+  Form,
+  Input,
+  SelectPicker,
+} from "rsuite";
 import { API_URL } from "../_config/api";
 import { fetchWithAuth } from "./fetchWithAuth";
 
@@ -87,6 +94,7 @@ export const SelectFieldApi = ({
   selectLabel,
   selectValue,
   placeholder = "Selecione uma opção",
+  multiple = false,
   ...rest
 }: {
   name: string;
@@ -95,6 +103,7 @@ export const SelectFieldApi = ({
   selectLabel: string;
   selectValue: string;
   placeholder?: string;
+  multiple?: boolean;
   [key: string]: any;
 }) => {
   const [options, setOptions] = useState<{ label: string; value: any }[]>([]);
@@ -116,7 +125,7 @@ export const SelectFieldApi = ({
     <FormFieldWrapper name={name} label={label}>
       <Form.Control
         name={name}
-        accepter={SelectPicker}
+        accepter={multiple ? CheckPicker : SelectPicker}
         data={options}
         loading={loading}
         placeholder={placeholder}

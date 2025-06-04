@@ -5,7 +5,7 @@ import { IconButton, Schema, useToaster } from "rsuite";
 import { DeleteNotification } from "../_components/notification";
 import AddOutlineIcon from "@rsuite/icons/AddOutline";
 import ModalComponent from "../_components/modal";
-import { TextField } from "../_components/inputs";
+import { SelectFieldApi, TextField } from "../_components/inputs";
 import TableComponent, {
   TableButomIcon,
   TableField,
@@ -103,14 +103,23 @@ const User = () => {
             form={[
               <TextField key={1} name="fullName" label="Nome Completo" />,
               <TextField key={2} name="email" label="Email" />,
-              <TextField
+              <SelectFieldApi
                 key={3}
+                name="roles"
+                label="Permissões"
+                link="/roles"
+                selectLabel="name"
+                selectValue="id"
+                multiple={true}
+              />,
+              <TextField
+                key={4}
                 name="password"
                 label="Senha"
                 type="password"
               />,
               <TextField
-                key={4}
+                key={5}
                 name="passwordConfirmation"
                 label="Confirmar Senha"
                 type="password"

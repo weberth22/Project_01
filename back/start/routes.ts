@@ -21,6 +21,7 @@ router
     router.resource('clients', ClientsController)
     router.resource('rents', RentsController)
     router.resource('users', UsersController)
+    router.get('/roles', [UsersController, 'roles']).as('users.roles')
   })
   .prefix('/api')
   .use(middleware.auth())

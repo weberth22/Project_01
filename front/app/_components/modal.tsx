@@ -51,6 +51,7 @@ const ModalComponent = ({
           url: `${API_URL}${link}/${id}`,
           dateFields: stableDateFields,
         });
+        console.log(response);
         if (!response) return;
         setFormValue(response);
       })();
